@@ -1,0 +1,36 @@
+
+    fn get_children(&self, secret: &Vec<u8>, queue: &mut Queue<Vec<u8>>) {
+        if secret.len() == self.max_len {
+            return;
+        }
+
+        for &c in self.alphabet.iter() {
+            // allocate space for a secret one character longer
+            let mut new_secret: Vec<u8> = Vec::with_capacity(secret.len() + 1);
+            // build the new secret
+            new_secret.extend(secret.iter().chain(&mut [c].iter()));
+
+            queue.add(new_secret);
+        }
+    }
+    fn non_rec(&self, begin_secret: Vec<u8>) -> Option<Vec<u8>> {
+        // Verify that the first initial secret is not correct. If it is, return it
+        if is_secret_valid(&self.msg, &self.sig64, &begin_secret) {
+            return Some(begin_secret);
+        }
+
+        let mut secret_q: Queue<Vec<u8>> = queue![];
+        // Populate the queue with the initial secrets
+        self.get_children(&begin_secret, &mut secret_q);
+
+        while let Ok(secret) = secret_q.remove() {
+            // Verify that the first initial secret is not correct. If it is, return it
+            if is_secret_valid(&self.msg, &self.sig64, &secret) {
+                return Some(secret);
+            }
+
+            // Populate the queue with the new child secrets
+            self.get_children(&secret, &mut secret_q);
+        }
+        None
+    }

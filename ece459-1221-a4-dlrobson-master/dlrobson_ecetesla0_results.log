@@ -1,0 +1,23 @@
+setting up code of dlrobson on ecetesla0
+run cargo
+run hyperfine
+param: 160 4 4000 6 6
+Benchmark #1: target/release/lab4 160 4 4000 6 6
+  Time (mean ± σ):       7.2 ms ±   1.2 ms    [User: 23.8 ms, System: 12.4 ms]
+  Range (min … max):     6.0 ms …  20.9 ms    139 runs
+ 
+param: 160 4 50000 6 6
+Benchmark #1: target/release/lab4 160 4 50000 6 6
+  Time (mean ± σ):      34.1 ms ±   3.1 ms    [User: 174.6 ms, System: 40.1 ms]
+  Range (min … max):    28.4 ms …  43.9 ms    87 runs
+ 
+param: 160 4 50000 10 10
+Benchmark #1: target/release/lab4 160 4 50000 10 10
+  Time (mean ± σ):      29.1 ms ±   1.9 ms    [User: 278.4 ms, System: 39.8 ms]
+  Range (min … max):    26.7 ms …  35.9 ms    94 runs
+ 
+param: 160 4 100000 10 10
+Benchmark #1: target/release/lab4 160 4 100000 10 10
+  Time (mean ± σ):      55.3 ms ±   3.9 ms    [User: 540.7 ms, System: 77.1 ms]
+  Range (min … max):    49.5 ms …  67.1 ms    48 runs
+ 

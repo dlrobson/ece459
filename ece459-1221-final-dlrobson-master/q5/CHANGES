@@ -1,0 +1,20 @@
+# Describe your change here.
+## Q5a
+The flamegraph is shown below:
+<img src="./flamegraph.svg">
+This is on `ecetesal0`. The 4 largest time sinks are `simsearch:SimSearch<Id>::search` (42.54%), `simsearch:SimSearch<Id>::insert` (32.74%), `std::io::stdio::_print` (12.03%), and `core::ptr::drop_in_place<simsearch::SimSearch<&str>>` (5.12%).
+These sum up to 92.43%
+The total execution time was 5.30s.
+If these section took 0s, the total execution time could be `t = (1 - 0.9243) * 5.30s = 0.40s`.
+
+## Q5b
+One reason why this is hard to change is because it's someone else's code that I've never seen before, and have to figure out what is going on.
+Also, this seems to be relying on a third party library for most of the changes.
+This is likely a huge library so it's not feasible to improve their code.
+SimSearch::search takes up the most time, however it is a single line and won't easily be computationally improved.
+The best we can do is focus on the printing section, and improving that.
+
+## Q5c
+"Briefly describe the change in a CHANGES file in your \texttt{q5} directory (this can be very brief!), and include the machine that you ran it on and before-and-after times. How does this compare to your speedup estimate in the previous part?"
+
+Way less speed up with this method, since we couldn't change the main culprits taking up the computation time. Luckily, the printing preparation was a major section.
